@@ -1,8 +1,12 @@
 # This file contains the Command Line Interface (CLI) for
 # the Tic-Tac-Toe game. This is where input and output happens.
 # For core game logic, see logic.py.
-
+import logging
 from logic import make_empty_board, get_winner, other_player
+logging.basicConfig(
+    filename='logs/game_redords.log',
+    level = logging.INFO
+)
 
 def print_board(board):
     for row in board:
@@ -35,10 +39,18 @@ if __name__ == '__main__':
         
         # Check for a winner
         winner = get_winner(board)
-        if winner:
+        if winner == 'X':
+            print_board(board)
             print(f"{winner} wins!")
+            logging.info('X won')
+        if winner =='Y':
+            print_board(board)
+            print(f"{winner} wins!")
+            logging.info('Y won')
         elif all(cell is not None for row in board for cell in row):
+            print_board(board)
             print("It's a tie!")
+            logging.info('Tie')
             break
 
         # Switch to the other player
