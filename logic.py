@@ -2,39 +2,44 @@
 # or output happens here. The logic in this file
 # should be unit-testable.
 
+class TicTacToe:
+    def __init__(self):
+        self.board = self.make_empty_board()
+        self.current_player = 'X'
+        self.winner = None
 
-def make_empty_board():
-    return [
-        [None, None, None],
-        [None, None, None],
-        [None, None, None]
-    ]
+    @staticmethod
+    def make_empty_board():
+        return [
+            [None, None, None],
+            [None, None, None],
+            [None, None, None]
+        ]
 
-def get_winner(board):
-    """Determines the winner of the given board.
-    Returns 'X', 'O', or None if there's no winner."""
-    for player in ['X', 'O']:
-        # Check rows
-        for row in board:
-            if all(cell == player for cell in row):
-                return player
+    def make_move(self, row, col):
+        if self.board[row][col] is None:
+            self.board[row][col] = self.current_player
+            self.switch_player()
+            self.check_winner()
 
-        # Check columns
-        for col in range(3):
-            if all(board[row][col] == player for row in range(3)):
-                return player
+    def switch_player(self):
+        if self.current_player == 'X':
+            self.current_player = 'O'
+        else:
+            self.current_player = 'X'
 
-        # Check diagonals
-        if all(board[i][i] == player for i in range(3)) or all(board[i][2 - i] == player for i in range(3)):
-            return player
+    def check_winner(self):
+        for player in ['X', 'O']:
+            for row in self.board:
+                if all(cell == player for cell in row):
+                    self.winner = player
 
-    return None
+            for col in range(3):
+                if all(self.board[row][col] == player for row in range(3)):
+                    self.winner = player
 
-def other_player(player):
-    """Given the character for a player, returns the other player."""
-    if player == 'X':
-        return 'O'
-    elif player == 'O':
-        return 'X'
-    else:
-        raise ValueError("Invalid player character")
+            if all(self.board[i][i] == player for i in range(3)) or all(self.board[i][2 - i] == player for i in range(3)):
+                self.winner = player
+
+        if all(cell is not None for row in self.board for cell in row):
+            self.winner = 'Tie'
