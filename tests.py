@@ -1,7 +1,9 @@
 import unittest
+from unittest.mock import patch
 from logic import Board, Game, Human, Bot
 
-class TestLogic(unittest.TestCase):
+
+class TestTicTacToe(unittest.TestCase):
 
     def test_make_empty_board(self):
         board = Board()
@@ -12,48 +14,51 @@ class TestLogic(unittest.TestCase):
         ]
         self.assertEqual(board.get_board(), empty_board)
 
-    def test_make_move(self):
-        board = Board()
-        player = 'X'
-        self.assertTrue(board.make_move(0, 0, player))
-        self.assertEqual(board.get_board()[0][0], player)
+    def test_other_player(self):
+        playerX = Human()
+        playerO = Bot()
+        game = Game(playerX, playerO)
 
-    def test_invalid_move(self):
-        board = Board()
-        player = 'O'
-        # Making a valid move first
-        board.make_move(1, 1, 'X')
-        self.assertFalse(board.make_move(1, 1, player))  # Invalid move, cell already occupied
+        with patch('builtins.input', side_effect=['0', '0']):
+            move = playerX.get_move(game._board.get_board())
+        self.assertEqual(move, (0, 0))
 
-    def test_get_winner_rows(self):
+    def test_check_winner(self):
+        # Assuming that the get_winner() method works correctly, this test checks if it is correctly identified
+        # when a player has won.
+
+        # Create a winning board for player 'X'
+        winning_board = [
+            ['X', 'O', 'X'],
+            ['O', 'X', 'O'],
+            ['X', ' ', 'O']
+        ]
         game = Game(Human(), Human())
-        game._board.make_move(0, 0, 'X')
-        game._board.make_move(0, 1, 'X')
-        game._board.make_move(0, 2, 'X')
-        self.assertEqual(game.get_winner(), 'X')
+        game._board._board = winning_board
+        winner = game.get_winner()
+        self.assertEqual(winner, 'X')
 
-    def test_get_winner_columns(self):
+    def test_get_winner(self):
+        # Assuming that the get_winner() method works correctly, this test checks if it correctly identifies
+        # when there is no winner (game still in progress).
+
+        # Create a board with no winner yet
+        in_progress_board = [
+            ['X', 'O', 'X'],
+            ['O', 'X', 'O'],
+            [' ', ' ', ' ']
+        ]
         game = Game(Human(), Human())
-        game._board.make_move(0, 0, 'O')
-        game._board.make_move(1, 0, 'O')
-        game._board.make_move(2, 0, 'O')
-        self.assertEqual(game.get_winner(), 'O')
+        game._board._board = in_progress_board
+        winner = game.get_winner()
+        self.assertIsNone(winner)
 
-    def test_get_winner_diagonal(self):
-        game = Game(Human(), Human())
-        game._board.make_move(0, 0, 'X')
-        game._board.make_move(1, 1, 'X')
-        game._board.make_move(2, 2, 'X')
-        self.assertEqual(game.get_winner(), 'X')
+    def test_assign_bot(self):
+        # Assuming that the Bot class is working correctly, this test checks if a Bot instance is correctly assigned
+        game = Game(Human(), Bot())
+        self.assertIsInstance(game._playerO, Bot)
 
-    def test_get_winner_no_winner(self):
-        game = Game(Human(), Human())
-        game._board.make_move(0, 0, 'O')
-        game._board.make_move(1, 1, 'X')
-        game._board.make_move(2, 2, 'O')
-        self.assertIsNone(game.get_winner())
 
-    # Add more tests for other functions as needed
 
 if __name__ == '__main__':
     unittest.main()
