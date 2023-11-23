@@ -3,6 +3,14 @@
 # should be unit-testable.
 
 import random
+import logging
+import os
+import csv
+
+logging.basicConfig(filename="logs/logs.log", format='%(asctime)s %(message)s', filemode='a', force=True)
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
 
 class Board:
     def __init__(self):
@@ -20,6 +28,7 @@ class Board:
 
     def get_board(self):
         return self._board
+
 
 class Game:
     def __init__(self, playerX, playerO):
@@ -43,15 +52,20 @@ class Game:
             row, col = move
             if self._board.make_move(row, col, self._current_player):
                 winner = self.get_winner()
+
                 if winner:
                     print("Current board:")
                     self.print_board()
+                    logger.info(f'Winner: {winner}')
+                    self.record_winner(winner)
                     print(f"{winner} wins!")
                     break
                 elif all(cell is not None for row in self._board.get_board() for cell in row):
+                    logger.info("Draw")
                     print("Current board:")
                     self.print_board()
                     print("It's a tie!")
+                    self.record_winner('Draw')
                     break
 
                 self._current_player = 'O' if self._current_player == 'X' else 'X'
@@ -80,6 +94,12 @@ class Game:
 
         return None
 
+    def record_winner(self, winner):
+        with open("logs/database.csv", mode='a', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow([winner])
+
+
 class Human:
     def get_move(self, board):
         while True:
@@ -92,6 +112,7 @@ class Human:
                     print("That spot is already taken. Try again.")
             except (ValueError, IndexError):
                 print("Invalid input. Try again.")
+
 
 class Bot:
     def get_move(self, board):
