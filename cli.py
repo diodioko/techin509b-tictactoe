@@ -12,27 +12,45 @@ if not os.path.exists("logs"):
 if not os.path.exists("logs/database.csv"):
     with open("logs/database.csv", mode='w', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow(['Winner'])
+        writer.writerow(['Winner', 'FirstPlayer', 'FirstPlayerMove'])
 
 if __name__ == '__main__':
-    game_mode = input("Enter game mode (1 for single player, 2 for two players): ")
+    total_games = 0
+    total_wins_X = 0
+    total_wins_O = 0
+    total_draws = 0
 
-    if game_mode == '1':
-        game = Game(Human(), Bot())
-    elif game_mode == '2':
-        game = Game(Human(), Human())
-    else:
-        print("Invalid game mode. Exiting.")
-        exit()
+    while True:
+        first_player = input("Do you want to play as X or O? ").upper()
+        if first_player not in ['X', 'O']:
+            print("Invalid choice. Please enter either 'X' or 'O'.")
+            continue
 
-    game.run()
+        game_mode = input("Do you want to play against a human (1) or a bot (2)? ")
+        if game_mode == '1':
+            second_player = 'O' if first_player == 'X' else 'X'
+            game = Game(Human(), Human(), first_player)
+        elif game_mode == '2':
+            second_player = 'O' if first_player == 'X' else 'X'
+            game = Game(Human(), Bot(), first_player)
+        else:
+            print("Invalid game mode. Try again.")
+            continue
 
-    # Report on game statistics
-    with open("logs/database.csv", mode='r') as file:
-        reader = csv.reader(file)
-        data = list(reader)
+        total_games += 1
+        game.run(total_games)
 
-    total_games = len(data) - 1  # Subtracting header row
-    total_wins_X = data.count(['X'])
-    total_wins_O = data.count(['O'])
-    total_draws = data.count(['Draw'])
+        # Update statistics
+        with open("logs/database.csv", mode='r') as file:
+            reader = csv.reader(file)
+            data = list(reader)
+
+        total_wins_X += data.count(['X', first_player, str(first_player) + str((0, 0))])
+        total_wins_O += data.count(['O', first_player, str(first_player) + str((0, 0))])
+        total_draws += data.count(['Draw', first_player, str(first_player) + str((0, 0))])
+
+    print("Overall Statistics:")
+    print(f"Total Games: {total_games}")
+    print(f"Total Wins for X: {total_wins_X}")
+    print(f"Total Wins for O: {total_wins_O}")
+    print(f"Total Draws: {total_draws}")

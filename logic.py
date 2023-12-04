@@ -31,13 +31,15 @@ class Board:
 
 
 class Game:
-    def __init__(self, playerX, playerO):
+    def __init__(self, playerX, playerO, first_player):
         self._board = Board()
         self._playerX = playerX
         self._playerO = playerO
-        self._current_player = 'X'
+        self._current_player = first_player
 
-    def run(self):
+    def run(self, game_number):
+        first_player_move = None
+
         while True:
             print("Current board:")
             self.print_board()
@@ -49,6 +51,8 @@ class Game:
             else:
                 move = self._playerO.get_move(self._board.get_board())
 
+            first_player_move = move if first_player_move is None else first_player_move
+
             row, col = move
             if self._board.make_move(row, col, self._current_player):
                 winner = self.get_winner()
@@ -56,16 +60,16 @@ class Game:
                 if winner:
                     print("Current board:")
                     self.print_board()
-                    logger.info(f'Winner: {winner}')
-                    self.record_winner(winner)
+                    logger.info(f'Game {game_number}: Winner: {winner}, First Player: {self._current_player}, First Player Move: {first_player_move}')
+                    self.record_winner(winner, first_player_move)
                     print(f"{winner} wins!")
                     break
                 elif all(cell is not None for row in self._board.get_board() for cell in row):
-                    logger.info("Draw")
+                    logger.info(f'Game {game_number}: Draw, First Player: {self._current_player}, First Player Move: {first_player_move}')
                     print("Current board:")
                     self.print_board()
                     print("It's a tie!")
-                    self.record_winner('Draw')
+                    self.record_winner('Draw', first_player_move)
                     break
 
                 self._current_player = 'O' if self._current_player == 'X' else 'X'
@@ -94,10 +98,10 @@ class Game:
 
         return None
 
-    def record_winner(self, winner):
+    def record_winner(self, winner, first_player_move):
         with open("logs/database.csv", mode='a', newline='') as file:
             writer = csv.writer(file)
-            writer.writerow([winner])
+            writer.writerow([winner, self._current_player, str(first_player_move)])
 
 
 class Human:

@@ -1,10 +1,30 @@
-2023-11-23 11:15:37,276 Winner: X
-2023-11-23 11:16:41,281 Winner: X
-2023-11-23 11:17:33,603 Winner: O
-2023-11-23 11:18:25,896 Winner: O
-2023-11-23 11:20:38,827 Draw
-2023-11-23 11:20:57,923 Winner: X
-2023-11-23 11:21:30,745 Winner: O
-2023-11-23 11:21:56,232 Winner: O
-2023-11-23 11:22:11,218 Winner: X
-2023-11-23 11:22:42,867 Winner: X
+2023-12-03 16:38:33,293 Game 1: Winner: X, First Player: X, First Player Move: (1, 1)
+2023-12-03 17:03:46,648 Game 2: Winner: X, First Player: X, First Player Move: (0, 0)
+2023-12-03 17:04:32,292 Game 3: Winner: X, First Player: X, First Player Move: (1, 1)
+2023-12-03 17:04:57,058 Game 4: Winner: O, First Player: O, First Player Move: (1, 1)
+2023-12-03 17:05:46,741 Game 5: Winner: O, First Player: O, First Player Move: (1, 1)
+2023-12-03 17:06:29,116 Game 6: Draw, First Player: X, First Player Move: (0, 1)
+2023-12-03 18:17:53,989 Game 7: Winner: X, First Player: X, First Player Move: (1, 0)
+2023-12-03 18:18:55,717 Game 8: Winner: O, First Player: O, First Player Move: (1, 1)
+2023-12-03 18:20:44,543 Game 9: Draw, First Player: O, First Player Move: (1, 1)
+2023-12-03 18:21:45,129 Game 10: Winner: X, First Player: X, First Player Move: (2, 0)
+2023-12-03 18:23:40,081 Game 11: Winner: O, First Player: O, First Player Move: (2, 2)
+2023-12-03 18:24:38,641 Game 12: Winner: O, First Player: O, First Player Move: (0, 0)
+2023-12-03 18:26:01,170 Game 13: Winner: X, First Player: X, First Player Move: (1, 1)
+2023-12-03 18:27:12,285 Game 14: Draw, First Player: O, First Player Move: (1, 1)
+2023-12-03 18:28:06,901 Game 15: Winner: O, First Player: O, First Player Move: (1, 1)
+2023-12-03 18:28:47,162 Game 16: Winner: X, First Player: X, First Player Move: (1, 1)
+2023-12-03 18:29:37,184 Game 17: Winner: O, First Player: O, First Player Move: (1, 1)
+2023-12-03 18:30:39,404 Game 18: Draw, First Player: O, First Player Move: (1, 0)
+2023-12-03 18:31:12,705 Game 19: Winner: X, First Player: X, First Player Move: (2, 2)
+2023-12-03 18:33:30,448 Game 20: Winner: X, First Player: X, First Player Move: (1, 1)
+2023-12-03 18:34:25,109 Game 21: Draw, First Player: O, First Player Move: (0, 1)
+2023-12-03 18:34:54,569 Game 22: Winner: X, First Player: X, First Player Move: (0, 1)
+2023-12-03 18:35:11,624 Game 23: Winner: X, First Player: X, First Player Move: (1, 1)
+2023-12-03 18:36:27,223 Game 24: Draw, First Player: X, First Player Move: (1, 2)
+2023-12-03 18:37:31,858 Game 25: Winner: X, First Player: X, First Player Move: (1, 1)
+2023-12-03 18:38:19,843 Game 26: Winner: O, First Player: O, First Player Move: (1, 1)
+2023-12-03 18:38:39,584 Game 27: Winner: X, First Player: X, First Player Move: (0, 1)
+2023-12-03 18:39:08,308 Game 28: Winner: X, First Player: X, First Player Move: (1, 2)
+2023-12-03 18:39:30,222 Game 29: Draw, First Player: X, First Player Move: (1, 1)
+2023-12-03 18:39:54,118 Game 30: Winner: X, First Player: X, First Player Move: (2, 1)
